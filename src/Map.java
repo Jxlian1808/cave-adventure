@@ -8,9 +8,11 @@ public class Map {
 
     }
 
-    public void mapGetLocation(int keyLocation, int doorLocation) {
+    public void mapGetLocation(int keyLocation, int doorLocation, Hint hint) {
         int a = 0;
+        boolean[] newpositionIsBlocked = {
 
+        };
         for (int i = 2; i < 5; i++) {
             a = 0;
 
@@ -19,25 +21,37 @@ public class Map {
                 Random randomNumber = new Random();
                 mapLocation[i] = 1 + randomNumber.nextInt(25);
 
-                if (!(mapLocation[i] == doorLocation || mapLocation[i] == keyLocation || mapLocation[i] == 13
-                        || mapLocation[i] == mapLocation[i - 1] || mapLocation[i] == mapLocation[i - 2])) {
+                if (!(mapLocation[i] == 8 || mapLocation[i] >= 12 && mapLocation[i] <= 14 || mapLocation[i] == 18
+                        || mapLocation[i] == doorLocation || mapLocation[i] == keyLocation || mapLocation[i] == mapLocation[i - 1]
+                        || mapLocation[i] == mapLocation[i - 2])) {
                     a++;
+                    newpositionIsBlocked[mapLocation[2]] = true;
+                    newpositionIsBlocked[mapLocation[3]] = true;
+                    newpositionIsBlocked[mapLocation[4]] = true;
                 }
             }
         }
 
     }
 
-    public void pickUpMap(Player player) {
+    public void pickUpMap(Player player, int[] hintLocation) {
+
         for (int i = 2; i < 5; i++) {
 
             if (player.getPlayerLocation() == mapLocation[i]) {
                 System.out.println("You found the Map and picked it up");
+                hintLocation[6] = 0;
+                hintLocation[7] = 0;
+                hintLocation[8] = 0;
+                hintLocation[11] = 0;
+                hintLocation[12] = 0;
+                hintLocation[13] = 0;
                 for (int j = 2; j < 5; j++) {
                     mapLocation[j] = 0;
                 }
 
                 player.setPlayerHasMap(true);
+                player.setOutputCounter(0);
 
             }
         }

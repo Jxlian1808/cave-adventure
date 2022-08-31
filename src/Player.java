@@ -10,19 +10,23 @@ public class Player {
 
     private boolean playerFoundDoor = false;
 
-    private boolean playerWin = false;
-
     private boolean playerLose = false;
-
-    Map map = new Map();
 
     private int playerLocation = 13;
 
     private boolean playerWasThere[] = new boolean[26];
 
-    public int playerAction(Door door) {
+    private int outputCounter = 0;
 
-        String userEingabe = scan.nextLine();
+    public void playerAction(Door door, Key key, Hint hint, Map map, int doorLocation, int keyLocation, int[] mapLocation) {
+        int b = 0;
+        int c = 0;
+        String userInput = scan.nextLine();
+        String[] halfUserInput = userInput.toLowerCase().split(" ");
+
+        boolean[] newCheckUserInput = {
+
+        };
 
         // rooms:
         // 01 02 03 04 05
@@ -31,41 +35,190 @@ public class Player {
         // 16 17 18 19 20
         // 21 22 23 24 25
 
-        switch (userEingabe) {
+        switch (userInput) {
         case "go north":
+
+            b = 0;
+            c = 0;
+
+            for (int i = 4; i <= 13; i++) {
+                newCheckUserInput = hint.getCheckUserInput();
+                c = i;
+                if (hint.getCheckUserInput()[i] == true) {
+                    if (halfUserInput[1].equals(hint.getHintDirection()[i])) {
+
+                        if (!(playerLocation == doorLocation || playerLocation == keyLocation || playerLocation == mapLocation[2]
+                                || playerLocation == mapLocation[3] || playerLocation == mapLocation[4])) {
+                            System.out.println("The sound you hear didn't came from this room. Go one room more in the " + hint
+                                    .getHintDirection()[i]);
+                        } else {
+                            newCheckUserInput[i] = false;
+                            break;
+                        }
+
+                        break;
+                    } else {
+                        newCheckUserInput[i] = false;
+                        break;
+                    }
+                }
+            }
 
             if (playerLocation >= 1 && playerLocation <= 5) {
                 playerLocation += 20;
             } else {
                 playerLocation -= 5;
             }
+            for (int a = 4; a <= 13; a++) {
+                if (hint.getCheckUserInput()[a] == false) {
+                    b++;
+
+                }
+            }
+            if (b == 10) {
+                roomIsEmpty(key.getKeyLocation(), map.getMapLocation(), door.getDoorLocation(), hint.getHintLocation());
+            }
+
+            newCheckUserInput[c] = false;
+            hint.setCheckUserInput(newCheckUserInput);
+
             break;
 
         case "go east":
+
+            b = 0;
+            c = 0;
+
+            for (int i = 4; i <= 13; i++) {
+                newCheckUserInput = hint.getCheckUserInput();
+                c = i;
+                if (hint.getCheckUserInput()[i] == true) {
+                    if (halfUserInput[1].equals(hint.getHintDirection()[i])) {
+                        if (!(playerLocation == doorLocation || playerLocation == keyLocation || playerLocation == mapLocation[2]
+                                || playerLocation == mapLocation[3] || playerLocation == mapLocation[4])) {
+                            System.out.println("The sound you hear didn't came from this room. Go one room more in the " + hint
+                                    .getHintDirection()[i]);
+                        } else {
+                            newCheckUserInput[i] = false;
+                            break;
+                        }
+
+                        break;
+                    } else {
+                        newCheckUserInput[i] = false;
+                        break;
+                    }
+                }
+            }
 
             if (playerLocation == 5 || playerLocation == 10 || playerLocation == 15 || playerLocation == 20 || playerLocation == 25) {
                 playerLocation -= 4;
             } else {
                 playerLocation += 1;
             }
+            for (int a = 4; a <= 13; a++) {
+                if (hint.getCheckUserInput()[a] == false) {
+                    b++;
 
+                }
+            }
+            if (b == 10) {
+                roomIsEmpty(key.getKeyLocation(), map.getMapLocation(), door.getDoorLocation(), hint.getHintLocation());
+            }
+
+            newCheckUserInput[c] = false;
+            hint.setCheckUserInput(newCheckUserInput);
             break;
         case "go south":
+
+            b = 0;
+            c = 0;
+
+            for (int i = 4; i <= 13; i++) {
+                newCheckUserInput = hint.getCheckUserInput();
+                c = i;
+                if (hint.getCheckUserInput()[i] == true) {
+                    if (halfUserInput[1].equals(hint.getHintDirection()[i])) {
+
+                        if (!(playerLocation == doorLocation || playerLocation == keyLocation || playerLocation == mapLocation[2]
+                                || playerLocation == mapLocation[3] || playerLocation == mapLocation[4])) {
+                            System.out.println("The sound you hear didn't came from this room. Go one room more in the " + hint
+                                    .getHintDirection()[i]);
+                        } else {
+                            newCheckUserInput[i] = false;
+                            break;
+                        }
+
+                        break;
+                    } else {
+                        newCheckUserInput[i] = false;
+                        break;
+                    }
+                }
+            }
 
             if (playerLocation >= 21 && playerLocation <= 25) {
                 playerLocation -= 20;
             } else {
                 playerLocation += 5;
             }
+            for (int a = 4; a <= 13; a++) {
+                if (hint.getCheckUserInput()[a] == false) {
+                    b++;
 
+                }
+            }
+            if (b == 10) {
+                roomIsEmpty(key.getKeyLocation(), map.getMapLocation(), door.getDoorLocation(), hint.getHintLocation());
+            }
+
+            newCheckUserInput[c] = false;
+            hint.setCheckUserInput(newCheckUserInput);
             break;
         case "go west":
+
+            b = 0;
+            c = 0;
+
+            for (int i = 4; i <= 13; i++) {
+                newCheckUserInput = hint.getCheckUserInput();
+                c = i;
+                if (hint.getCheckUserInput()[i] == true) {
+                    if (halfUserInput[1].equals(hint.getHintDirection()[i])) {
+
+                        if (!(playerLocation == doorLocation || playerLocation == keyLocation || playerLocation == mapLocation[2]
+                                || playerLocation == mapLocation[3] || playerLocation == mapLocation[4])) {
+                            System.out.println("The sound you hear didn't came from this room. Go one room more in the " + hint
+                                    .getHintDirection()[i]);
+                        } else {
+                            newCheckUserInput[i] = false;
+                            break;
+                        }
+                        break;
+                    } else {
+                        newCheckUserInput[i] = false;
+                        break;
+                    }
+                }
+            }
 
             if (playerLocation == 1 || playerLocation == 6 || playerLocation == 11 || playerLocation == 16 || playerLocation == 21) {
                 playerLocation += 4;
             } else {
                 playerLocation -= 1;
             }
+            for (int a = 4; a <= 13; a++) {
+                if (hint.getCheckUserInput()[a] == false) {
+                    b++;
+
+                }
+            }
+            if (b == 10) {
+                roomIsEmpty(key.getKeyLocation(), map.getMapLocation(), door.getDoorLocation(), hint.getHintLocation());
+            }
+
+            newCheckUserInput[c] = false;
+            hint.setCheckUserInput(newCheckUserInput);
             break;
         case "show map":
 
@@ -105,7 +258,47 @@ public class Player {
             System.out.println("This isn't a command. Write help if you need help");
         }
 
-        return playerLocation;
+    }
+
+    public void roomIsEmpty(int keyLocation, int[] mapLocation, int doorLocation, int[] hintLocation) {
+
+        int a = 0;
+
+        for (int i = 4; i <= 13; i++) {
+
+            if (playerLocation == hintLocation[i]) {
+                a++;
+
+            }
+        }
+
+        if (a == 0 && playerLocation != keyLocation && playerLocation != doorLocation && playerLocation != mapLocation[2]
+                && playerLocation != mapLocation[3] && playerLocation != mapLocation[4]) {
+            if (playerWasThere[playerLocation] == true) {
+                System.out.println("You already explored this room. Go to another room");
+
+            } else {
+                switch (outputCounter) {
+                case 0:
+                    System.out.println("This room is empty. Go to another room to find something");
+                    outputCounter++;
+                    break;
+
+                case 1:
+                    System.out.println("This room is also empty. Maybe you find something in the next room");
+                    outputCounter++;
+                    break;
+
+                case 2:
+                    System.out.println("This room is also empty. Go to another room to find something");
+                    outputCounter = 0;
+                    break;
+
+                }
+
+            }
+
+        }
 
     }
 
@@ -155,20 +348,20 @@ public class Player {
         this.playerHasKey = playerHasKey;
     }
 
-    public boolean isGameEnd() {
-        return playerWin;
-    }
-
-    public void setGameEnd(boolean playerWin) {
-        this.playerWin = playerWin;
-    }
-
     public boolean isPlayerFoundDoor() {
         return playerFoundDoor;
     }
 
     public void setPlayerFoundDoor(boolean playerFoundDoor) {
         this.playerFoundDoor = playerFoundDoor;
+    }
+
+    public int getOutputCounter() {
+        return outputCounter;
+    }
+
+    public void setOutputCounter(int outputCounter) {
+        this.outputCounter = outputCounter;
     }
 
 }

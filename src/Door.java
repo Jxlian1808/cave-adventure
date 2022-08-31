@@ -8,8 +8,10 @@ public class Door {
 
     }
 
-    public void doorGetLocation() {
+    public void doorGetLocation(Hint hint) {
+        boolean[] newpositionIsBlocked = {
 
+        };
         int a = 0;
 
         while (a == 0) {
@@ -19,14 +21,18 @@ public class Door {
 
             if (!(doorLocation == 8 || doorLocation >= 12 && doorLocation <= 14 || doorLocation == 18)) {
                 a++;
+                newpositionIsBlocked[doorLocation] = true;
             }
         }
 
     }
 
-    public void foundDoor(Player player, boolean playerHasKey) {
+    public void foundDoor(Player player, boolean playerHasKey, int[] hintLocation) {
 
         if (player.getPlayerLocation() == doorLocation) {
+            hintLocation[4] = 0;
+            hintLocation[9] = 0;
+            player.setOutputCounter(0);
             if (player.isPlayerFoundDoor() == false) {
                 if (playerHasKey) {
                     System.out.println("You found the door");
@@ -35,7 +41,7 @@ public class Door {
                 }
                 player.setPlayerFoundDoor(true);
             } else if (playerHasKey) {
-                System.out.println("You're back in the door room");
+                System.out.println("You're back in the door room and have the key to escape");
             } else {
                 System.out.println("You're back in the door room but you still don't have the key");
             }

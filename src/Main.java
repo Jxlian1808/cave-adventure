@@ -16,7 +16,7 @@ public class Main {
         door.doorGetLocation();
         key.keygetLocation(door.getDoorLocation());
         map.mapGetLocation(key.getKeyLocation(), door.getDoorLocation());
-        hint.soundGetLocation(door.getDoorLocation(), key.getKeyLocation(), map.getMapLocation());
+        hint.hintGetLocation(door.getDoorLocation(), key.getKeyLocation(), map.getMapLocation());
 
         System.out.println(door.getDoorLocation());
         System.out.println(key.getKeyLocation());
@@ -25,8 +25,8 @@ public class Main {
         System.out.println(map.getMapLocation()[4]);
         System.out.println("");
 
-        for (int i = 4; i < 9; i++) {
-            System.out.println(hint.getSoundLocation()[i]);
+        for (int i = 4; i <= 13; i++) {
+            System.out.println(hint.getHintLocation()[i]);
         }
 
         System.out.println(
@@ -35,11 +35,12 @@ public class Main {
         while (a != 1) {
 
             map.mapUpdate(player.getPlayerWasThere(), player.getPlayerLocation());
-            player.playerAction(door);
-            map.pickUpMap(player);
-            key.pickUpKey(player);
-            door.foundDoor(player, player.isPlayerHasKey());
+            player.playerAction(door, key, hint, map, door.getDoorLocation(), key.getKeyLocation(), map.getMapLocation());
+            map.pickUpMap(player, hint.getHintLocation());
+            key.pickUpKey(player, hint.getHintLocation());
+            door.foundDoor(player, player.isPlayerHasKey(), hint.getHintLocation());
             a = player.endGame(a, door.getDoorLocation());
+            hint.showHint(player, player.getPlayerLocation());
 
         }
 
